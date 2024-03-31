@@ -34,8 +34,8 @@ public class JFrameListaLibros extends javax.swing.JFrame {
      */
     
     String [] titulos = {"Serie","Isbn","Titulo","Editorial","Autor","Idioma",
-        "Stock","Estado","Valor Venta","Valor Arriendo"};
-    String [] campos = new String [10];
+        "En Stock","Arrendados","Estado","$ Venta","$ Arriendo"};
+    String [] campos = new String [11];
     DefaultTableModel modelTable;
     
     public JFrameListaLibros() {
@@ -85,14 +85,15 @@ public class JFrameListaLibros extends javax.swing.JFrame {
                     campos[5]="sin idioma";
                 }
                 campos[6]=String.valueOf(lib.get(largo-1).getStock());
+                campos[7]=String.valueOf(lib.get(largo-1).getEnArriendo());
                 int estado = lib.get(largo-1).getEstado();
                 String e = "disponible";
                 if (estado==0){
                     e = "no disponible";
                 }
-                campos[7]=e;
-                campos[8]=String.valueOf(lib.get(largo-1).getPrecioVenta());
-                campos[9]=String.valueOf(lib.get(largo-1).getPrecioArriendo());
+                campos[8]=e;
+                campos[9]=String.valueOf(lib.get(largo-1).getPrecioVenta());
+                campos[10]=String.valueOf(lib.get(largo-1).getPrecioArriendo());
                 
                 modelTable.addRow(campos);
                 
@@ -113,6 +114,7 @@ public class JFrameListaLibros extends javax.swing.JFrame {
          jTableLibros.getColumnModel().getColumn(7).setCellRenderer(alinear);
          jTableLibros.getColumnModel().getColumn(8).setCellRenderer(alinear);
          jTableLibros.getColumnModel().getColumn(9).setCellRenderer(alinear);
+         jTableLibros.getColumnModel().getColumn(10).setCellRenderer(alinear);
         }
     }
 

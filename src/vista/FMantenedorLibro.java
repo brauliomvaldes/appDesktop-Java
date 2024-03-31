@@ -38,7 +38,7 @@ import modelo.IdiomaDAO;
 import modelo.LibroAutor;
 import modelo.LibroCategoria;
 import modelo.Libros;
-
+import static vista.MenuPrincipalBiblioteca.yearSistema;
 
 
 
@@ -154,7 +154,7 @@ public class FMantenedorLibro extends javax.swing.JFrame {
     }
      
     private void poblarYear(){
-        for(int i=2018;i>1900;i--){
+        for(int i=yearSistema;i>1950;i--){
             cmbYear.addItem(String.valueOf(i));
         }        
     } 

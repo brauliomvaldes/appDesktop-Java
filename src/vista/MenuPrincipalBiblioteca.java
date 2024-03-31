@@ -101,7 +101,7 @@ public class MenuPrincipalBiblioteca extends javax.swing.JFrame {
         if(personas!=null){
             largoPersonas = personas.size();
             while (largoPersonas>0){
-                if (personas.get(largoPersonas-1).getTipo_persona()==1 || personas.get(largoPersonas-1).getTipo_persona()==3){
+                if (personas.get(largoPersonas-1).getTipo_persona()==0 || personas.get(largoPersonas-1).getTipo_persona()==3){
                     //es cliente
                     rut = personas.get(largoPersonas-1).getId_persona_rut();
                     arriendos = cArriendos.leerPersonaEnArriendo(rut);
@@ -109,8 +109,8 @@ public class MenuPrincipalBiblioteca extends javax.swing.JFrame {
                     largoArriendos = arriendos.size();
                     while(largoArriendos>0){
                         fecha = arriendos.get(largoArriendos-1).getDia_devolucion_estimada()+"/"+
-                                 arriendos.get(largoArriendos-1).getDia_devolucion_estimada()+"/"+
-                                  arriendos.get(largoArriendos-1).getDia_devolucion_estimada();
+                                 arriendos.get(largoArriendos-1).getMes_devolucion_estimada()+"/"+
+                                  arriendos.get(largoArriendos-1).getYear_devolucion_estimada();
                         fechaDevolucion = ParseFecha(fecha);
                         //compara fecha, si resultado > 0 es
                         
@@ -118,7 +118,7 @@ public class MenuPrincipalBiblioteca extends javax.swing.JFrame {
                         //0 if the argument Date is equal to this Date; a value less than 0 if this Date is before the Date argument; 
                         //and a value greater than 0 if this Date is after the Date argument.
                         
-                        if(fechaHoy.compareTo(fechaDevolucion)>0){
+                        if(fechaHoy.compareTo(fechaDevolucion)==0){
                             //esta en mora
                             if(!cP.bloquearPersonaXmora(rut)){
                                 //error bloqueo cliente

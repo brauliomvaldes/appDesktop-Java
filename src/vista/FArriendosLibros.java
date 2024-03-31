@@ -405,8 +405,9 @@ public class FArriendosLibros extends javax.swing.JFrame {
         labelStock.setBackground(new java.awt.Color(255, 255, 255));
         labelStock.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         labelStock.setForeground(new java.awt.Color(0, 0, 255));
-        labelStock.setText("STOCK LIBRO");
+        labelStock.setText("ENTER confirma");
         getContentPane().add(labelStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 151, -1));
+        labelStock.getAccessibleContext().setAccessibleName("ENTER confirma");
 
         cmbDiaProceso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,7 +610,7 @@ public class FArriendosLibros extends javax.swing.JFrame {
 
     
     void llenarTablaConLibros(String campo, String buscado){
-        int stockReal;
+        stockReal = 0;
         modelTableArriendos = new DefaultTableModel(null,titulos);
         ControladorLibros clibros = new ControladorLibros();
         ArrayList<Libros> lib;
@@ -851,7 +852,7 @@ public class FArriendosLibros extends javax.swing.JFrame {
     
     private void btnAgregarLibroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarLibroActionPerformed
         // TODO add your handling code here:
-
+        if(enArriendo>0){
         if(!esNumero(txtSerie.getText()) || !esNumero(txtPrecioArriendoDiario.getText()) || 
                      txtTituloLibro.getText().isEmpty()){
             // error numeros o titulo vacios por no elección de libro
@@ -867,7 +868,7 @@ public class FArriendosLibros extends javax.swing.JFrame {
                 String serieLibro = txtSerie.getText();
                 
                 int cantidad = 1;
-                if (stockReal<cantidad){
+                if (stockReal<=cantidad){
                     JOptionPane.showMessageDialog(null, "Atención!, Cantidad ingresada supera Stock del libro: "+serieLibro, "",1);
                 }else{
                     // controla conversion de numeros
@@ -906,6 +907,13 @@ public class FArriendosLibros extends javax.swing.JFrame {
             }
             
         }
+        
+        }else{
+            // no ha confirmado el libro
+            JOptionPane.showMessageDialog(null, "Atención!, Debe Confirmar La Serie del Libro", "",1);
+            cmbDiaProceso.setFocusable(true);            
+        }
+              
     }//GEN-LAST:event_btnAgregarLibroActionPerformed
         
         
@@ -979,6 +987,8 @@ public class FArriendosLibros extends javax.swing.JFrame {
 
     private void btnRegistrarArriendoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarArriendoActionPerformed
         // TODO add your handling code here:
+        if(enArriendo>0){
+            
         if(validaFecha()){   
             if(txtFolio.getText().isEmpty() || txtTotal.getText().isEmpty() || txtNeto.getText().isEmpty() ||
                  txtNeto.getText().isEmpty() || modelCL.size() < 1 || txtSubtotal.getText().isEmpty() ||
@@ -1121,7 +1131,12 @@ public class FArriendosLibros extends javax.swing.JFrame {
                 // fecha no válida
                 JOptionPane.showMessageDialog(null, "Atención!, Fecha no válida", "",1);
                 cmbDiaProceso.setFocusable(true);
-        }   
+        }
+        }else{
+            // no ha confirmado el libro
+                JOptionPane.showMessageDialog(null, "Atención!, Debe Confirmar La Serie del Libro", "",1);
+                cmbDiaProceso.setFocusable(true);            
+        }
     }//GEN-LAST:event_btnRegistrarArriendoActionPerformed
 
     private void poblarLibrosArrendados(){
@@ -1226,9 +1241,14 @@ public class FArriendosLibros extends javax.swing.JFrame {
                 txtTituloLibro.setEditable(false);
                 //lee libros errendados
                 stockLibro = libroEncontrado.getStock();
-                enArriendo = libroEncontrado.getEnArriendo();
+                enArriendo = libroEncontrado.getEnArriendo();                           
                 stockReal = stockLibro - enArriendo;
-                labelStock.setText("en Stock: "+String.valueOf(stockReal));
+                if(stockReal > 0){
+                    labelStock.setText("en Stock: "+String.valueOf(stockReal));
+                }else{
+                    labelStock.setText("No hay Stock");
+                }
+                
                 }else{
                     cambiarSerie();
                 }

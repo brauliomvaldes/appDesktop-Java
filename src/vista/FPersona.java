@@ -456,7 +456,7 @@ public class FPersona extends javax.swing.JFrame {
                     }else{
                         Personas personaNueva = new Personas(id_persona_rut,dv,tipoPersona,nombre,aPaterno,aMaterno,
                                                 direccion,telefono,correo,diaContrato,mesContrato,yearContrato,
-                                                diaIncorporacion,mesIncorporacion,yearIncorporacion, suEstado);
+                                                diaIncorporacion,mesIncorporacion,yearIncorporacion, 1);
                         if(p.agregar(personaNueva)){
                                 //grabo direcciones, telefonos y correos de la persona
                                 //a grabar registros en personadireccio, personatelefon,personacorreo 
